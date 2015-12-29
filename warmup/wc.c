@@ -55,8 +55,10 @@ wc_init(char *word_array, long size)
     }
 
     /* Initialize the elements of the table */
-    for(i = 0; i < wc->tableSize; i++) wc->table[i] = NULL;
-
+    for(i = 0; i < wc->tableSize; i++) {
+        wc->table[i] = NULL;
+    }
+    
     for (i = 0; i < size; i++) {
         /* whitespace finishes a word. */
         c = word_array[i];
@@ -79,7 +81,7 @@ wc_init(char *word_array, long size)
 }
 
 bool
-isWordFound(struct wc *hashTable, char *word, unsigned int hashVal)
+lookup_word(struct wc *hashTable, char *word, unsigned int hashVal)
 {
     list *list;
 
@@ -103,7 +105,7 @@ wc_insert_word(struct wc *wc, char *word)
     unsigned int hashVal = hash(wc, word);
 
     // Checks if the word already exist and If yes return
-    if (isWordFound(wc, word, hashVal)) 
+    if (lookup_word(wc, word, hashVal)) 
         return;
 
     /* Attempt to allocate memory for list */
